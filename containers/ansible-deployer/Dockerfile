@@ -11,6 +11,7 @@ RUN yum install -y epel-release && \
     pip install 'ansible==2.4.2' && \
     pip install pycrypto oslo_utils oslo_config jinja2 && \
     git clone https://github.com/Juniper/contrail-ansible-deployer -b R5.0 /root/contrail-ansible-deployer && \
+    git clone https://github.com/Juniper/contrail-kolla-ansible -b master /root/contrail-kolla-ansible && \
     yum clean all -y && \
     rm -rf /var/cache/yum
 
