@@ -1,7 +1,7 @@
 #!/bin/bash
 # Builds containers. Takes CONTRAIL_REGISTRY, CONTRAIL_CONTAINER_TAG, LINUX_DISTR, LINUX_DISTR_VER from environment.
 # Parameters:
-# path: relative path (from this directory) to module(s) for selective build. Example: ./build.sh controller/webui
+# path: relative path (from this directory) to module(s) for selective build. Example: ./build.sh kolla-ansible-deployer
 #   if it's omitted then script will build all
 #   "all" as argument means build all. It's needed if you want to build all and pass some docker opts (see below).
 #   "list" will list all relative paths for build in right order. It's needed for automation. Example: ./build.sh list | grep -v "^INFO:"
@@ -9,6 +9,7 @@
 
 my_file="$(readlink -e "$0")"
 my_dir="$(dirname $my_file)"
+source "$my_dir/../parse-env.sh"
 
 path="$1"
 shift
