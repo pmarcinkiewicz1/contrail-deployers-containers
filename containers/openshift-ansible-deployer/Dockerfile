@@ -5,12 +5,13 @@ FROM $LINUX_DISTR:$LINUX_DISTR_VER
 ARG CONTAINER_NAME
 ENV PS1="\033[1m($CONTAINER_NAME)\033[m\017[$(id -un)@$(hostname -s) $(pwd)]$ "
 
+COPY src/* /root/
+
 RUN yum install -y epel-release && \
     yum install -y git python-pip && \
     pip install --upgrade pip && \
     pip install 'ansible==2.5.2' && \
-    git clone https://github.com/Juniper/openshift-ansible -b release-3.7-contrail /root/openshift-ansible3.7 && \
-    git clone https://github.com/Juniper/openshift-ansible -b release-3.9-contrail /root/openshift-ansible3.9 && \
+    /root/prepare.sh && \
     yum clean all -y && \
     rm -rf /var/cache/yum
 
