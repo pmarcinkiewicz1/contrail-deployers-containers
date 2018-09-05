@@ -6,9 +6,11 @@ Each deployer is packed into container as a snapshot to some point of time/state
 ```docker run -it --network host CONTAINER_IMAGE```
 where CONTAINER_IMAGE is a name with tag or image ID.
 
+Deployer sources used for building container are automatically cloned during build process, unless some pre-git-cloned sources are copied into 'src' folder before the build which allows using local copies of deployer's repos.
+
 # Building containers
 
-All containers or individual container can be built in a same way as main containers in contrail-container builder repository.
+All containers or individual container can be built in a same way as main containers in contrail-container-builder repository.
 
 This repository doesn’t have scripts to prepare docker registry so user should specify CONTRAIL_REGISTRY with correct value for ‘docker push’ command. By default IP of default interface (detected by default route) with port 5000 is used.
 
@@ -16,4 +18,4 @@ CONTRAIL_CONTAINER_TAG (or CONTRAIL_VERSION if first is absent) is used as a tag
 
 Container folder contains Dockerfile that is used for build process. The Dockerfile contains RUN directive with commands that install all needed packages for deployer’s run.
 
-In all folders Dockerfile must contain COPY directive. It must copy all content from ‘src’ folder inside image’s folder into ‘/root’ folder of creating container. The ‘src’ folder must contain ‘prepare.sh’ script that is called by Dockerfile after COPY procedure by RUN directive. This script should check presence of snapshotted repositories and clone them if needed. If the ‘src’ folder contains pre-cloned repositories then ‘prepare.sh’ shouldn’t clone them.
+In all folders Dockerfile must contain COPY directive. It must copy all content from ‘src’ folder to image’s ‘/root’ folder of creating container. The ‘src’ folder must contain ‘prepare.sh’ script that is called by Dockerfile after COPY procedure by RUN directive. This script should check presence of snapshotted repositories and clone them if needed. If the ‘src’ folder contains pre-cloned repositories then ‘prepare.sh’ shouldn’t clone them.
