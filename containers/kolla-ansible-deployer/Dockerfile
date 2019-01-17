@@ -8,7 +8,7 @@ ARG CONTAINER_NAME
 # Note: The directory itself is not copied, just its contents.
 COPY src /root/
 
-RUN yum install -y python-ipaddress git sudo vim gcc python-devel sshpass && \
+RUN yum install -y python-ipaddress git sudo vim gcc sshpass openssl python-devel libffi-devel openssl-devel && \
     pip --no-cache-dir install --upgrade 'ansible==2.4.2' pycrypto oslo_utils oslo_config jinja2 && \
     /root/prepare.sh && \
     yum clean all -y && \
