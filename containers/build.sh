@@ -20,6 +20,7 @@ echo "INFO: Contrail registry: $CONTRAIL_REGISTRY"
 echo "INFO: Contrail registry push (0=no,1=yes): $CONTRAIL_REGISTRY_PUSH"
 echo "INFO: Base container for deployers: $DEPLOYERS_BASE_CONTAINER"
 echo "INFO: Contrail deployers tag: $CONTRAIL_DEPLOYERS_TAG"
+echo "INFO: Keep log files: $CONTRAIL_KEEP_LOG_FILES"
 
 if [ -n "$opts" ]; then
   echo "INFO: Options: $opts"
@@ -72,7 +73,9 @@ function process_container() {
     was_errors=${PIPESTATUS[0]}
   fi
   if [ $was_errors -eq 0 ]; then
-    rm $logfile
+    if [[ "${CONTRAIL_KEEP_LOG_FILES,,}" != 'true' ]] ; then
+      rm -f $logfile
+    fi
   fi
 }
 
