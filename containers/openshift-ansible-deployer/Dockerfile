@@ -9,7 +9,7 @@ ARG CONTAINER_NAME
 COPY src /root/
 
 RUN yum install -y git python-pip && \
-    pip --no-cache-dir install --upgrade 'ansible==2.5.2' && \
+    pip --no-cache-dir install --upgrade 'ansible==2.6.18' && \
     /root/prepare.sh && \
     yum clean all -y && \
     rm -rf /var/cache/yum
