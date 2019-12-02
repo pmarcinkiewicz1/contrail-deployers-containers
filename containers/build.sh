@@ -82,7 +82,7 @@ function process_container() {
     ${build_arg_opts} -f $docker_file ${opts} $dir 2>&1 | append_log_file $logfile
   was_errors=${PIPESTATUS[0]}
   if [ $was_errors -eq 0 -a $CONTRAIL_REGISTRY_PUSH -eq 1 ] ; then
-    docker push ${CONTRAIL_REGISTRY}'/'${container_name}:${tag} 2>&1 | append_log_file $logfile
+    #docker push ${CONTRAIL_REGISTRY}'/'${container_name}:${tag} 2>&1 | append_log_file $logfile
     was_errors=${PIPESTATUS[0]}
   fi
   if [ $was_errors -eq 0 ]; then
