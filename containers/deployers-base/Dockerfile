@@ -1,7 +1,10 @@
 ARG DEPLOYERS_BASE_CONTAINER
 FROM ${DEPLOYERS_BASE_CONTAINER}
-
-RUN yum update -y && \
+COPY squid.pem /etc/pki/ca-trust/source/anchors/squid.pem
+RUN update-ca-trust export &&\
+    update-ca-trust &&\
+    export REQUESTS_CA_BUNDLE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem &&\
+    yum update -y && \
     yum install -y python-setuptools && easy_install pip && \
     yum clean all -y && \
     rm -rf /var/cache/yum
